@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Prince Gour">
+  <title>Download CV - Prince Gour</title>
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #0d0d0d;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+    }
+    .cv-container {
+      text-align: center;
+    }
+    .cv-container h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .download-btn {
+      background: #007bff;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+    }
+    .download-btn:hover {
+      background: #0056b3;
+    }
+    i {
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="cv-container">
+    <h1>Download My CV</h1>
+
+    <!-- Option 1: Force download using 'download' attribute -->
+    <a href="../assets/cv/Prince_Gour_CV.pdf" 
+       download="Prince_Gour_CV.pdf" 
+       class="download-btn">
+      <i class="fa-solid fa-file-arrow-down"></i> Download CV (PDF)
+    </a>
+
+    <!-- Option 2: Backup JS (works even if browser ignores 'download') -->
+    <script>
+      document.querySelector('.download-btn').addEventListener('click', function(e) {
+        e.preventDefault();
+        const link = document.createElement('a');
+        link.href = this.getAttribute('href');
+        link.download = 'Prince_Gour_CV.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+    </script>
+  </div>
+</body>
+</html>
