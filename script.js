@@ -8,11 +8,9 @@ function toggleTheme() {
   localStorage.setItem("theme", newTheme);
 }
 
-// Load Saved Theme on Page Load
-window.addEventListener("load", () => {
-  const savedTheme = localStorage.getItem("theme") || "light";
-  document.documentElement.setAttribute("data-theme", savedTheme);
-});
+// The saved theme is applied before first paint by a small inline <head>
+// script on every page. That prevents the white flash ("blink") when moving
+// between pages on dark theme, so there's nothing to do here on load.
 
 // Mobile Menu Toggle
 function toggleMobileMenu() {

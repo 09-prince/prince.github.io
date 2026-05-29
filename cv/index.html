@@ -7,6 +7,7 @@
   <title>Download CV - Prince Gour</title>
 
   <link rel="stylesheet" href="../style.css">
+  <script>(function(){try{document.documentElement.setAttribute('data-theme',localStorage.getItem('theme')||'light');}catch(e){}})();</script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     body {
@@ -43,6 +44,19 @@
     i {
       margin-right: 8px;
     }
+    .back-portfolio {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 24px;
+      color: #aaa;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+    }
+    .back-portfolio:hover {
+      color: #fff;
+    }
   </style>
 </head>
 <body>
@@ -54,6 +68,10 @@
        download="Prince_Gour_CV.pdf" 
        class="download-btn">
       <i class="fa-solid fa-file-arrow-down"></i> Download CV (PDF)
+    </a>
+
+    <a href="../index.html" class="back-portfolio">
+      <i class="fa-solid fa-arrow-left"></i> Back to Portfolio
     </a>
 
     <!-- Option 2: Backup JS (works even if browser ignores 'download') -->

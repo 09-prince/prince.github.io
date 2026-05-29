@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Prince Gour">
+  <title>Projects - Prince Gour</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../style.css">
+  <script>(function(){try{document.documentElement.setAttribute('data-theme',localStorage.getItem('theme')||'light');}catch(e){}})();</script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <div class="nav-social">
+        <a href="mailto:gourprince2004@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+        <a href="https://github.com/09-prince" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="https://linkedin.com/in/prince-gour" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+      </div>
+
+      <button class="mobile-toggle" onclick="toggleMobileMenu()"><i class="fa-solid fa-bars"></i></button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">about</a></li>
+        <li><a href="../blog/index.html">blog</a></li>
+        <li><a href="index.html" class="active">projects</a></li>
+        <li><a href="../cv/index.html">cv</a></li>
+        <li>
+          <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+            <i class="fa-solid fa-moon"></i>
+            <i class="fa-solid fa-sun"></i>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Projects Content -->
+  <div class="container">
+    <a href="../index.html" class="back-link">
+      <i class="fa-solid fa-arrow-left"></i> Back to Portfolio
+    </a>
+
+    <header class="profile-header">
+      <h1>Projects</h1>
+    </header>
+
+    <ul class="project-list">
+      <li class="project-item">
+        <div class="project-info">
+          <h3 class="project-title">Mixture of Experts (MoE)</h3>
+          <p class="project-desc">A Mixture-of-Experts (MoE) Transformer with sliding-window attention, trained on the TinyStories dataset.</p>
+          <span class="project-date">September 2025</span>
+        </div>
+        <a class="project-link" href="https://github.com/09-prince/Mixture_of_Expert-MoE-" target="_blank" rel="noopener">
+          <i class="fa-brands fa-github"></i> Open GitHub
+        </a>
+      </li>
+
+      <li class="project-item">
+        <div class="project-info">
+          <h3 class="project-title">Ternary Neural Network (MNIST)</h3>
+          <p class="project-desc">An efficient low-bit (ternary) CNN trained on MNIST in PyTorch, with visualization, logging, and reproducible training.</p>
+          <span class="project-date">July 2025</span>
+        </div>
+        <a class="project-link" href="https://github.com/09-prince/TernaryNN-MNIST-" target="_blank" rel="noopener">
+          <i class="fa-brands fa-github"></i> Open GitHub
+        </a>
+      </li>
+
+      <li class="project-item">
+        <div class="project-info">
+          <h3 class="project-title">RLHF Experiments</h3>
+          <p class="project-desc">Reinforcement Learning from Human Feedback experiments — DPO, PPO, and sentiment-aligned fine-tuning using HuggingFace TRL.</p>
+          <span class="project-date">July 2025</span>
+        </div>
+        <a class="project-link" href="https://github.com/09-prince/RLHF" target="_blank" rel="noopener">
+          <i class="fa-brands fa-github"></i> Open GitHub
+        </a>
+      </li>
+
+      <li class="project-item">
+        <div class="project-info">
+          <h3 class="project-title">TransLearn — YouTube Learning Assistant</h3>
+          <p class="project-desc">A FastAPI app that turns YouTube videos into MCQs, PDF study notes, and audio summaries using LLMs and Google TTS.</p>
+          <span class="project-date">July 2025</span>
+        </div>
+        <a class="project-link" href="https://github.com/09-prince/TransLearn" target="_blank" rel="noopener">
+          <i class="fa-brands fa-github"></i> Open GitHub
+        </a>
+      </li>
+
+      <li class="project-item">
+        <div class="project-info">
+          <h3 class="project-title">Stable Diffusion from Scratch</h3>
+          <p class="project-desc">A diffusion image-generation model built from scratch.</p>
+          <span class="project-date">May 2025</span>
+        </div>
+        <a class="project-link" href="https://github.com/09-prince/StableDiffusion" target="_blank" rel="noopener">
+          <i class="fa-brands fa-github"></i> Open GitHub
+        </a>
+      </li>
+
+      <li class="project-item">
+        <div class="project-info">
+          <h3 class="project-title">Reinforcement Learning from Scratch</h3>
+          <p class="project-desc">Core reinforcement-learning algorithms implemented from scratch.</p>
+          <span class="project-date">May 2025</span>
+        </div>
+        <a class="project-link" href="https://github.com/09-prince/Reinforcement_Learning" target="_blank" rel="noopener">
+          <i class="fa-brands fa-github"></i> Open GitHub
+        </a>
+      </li>
+
+      <li class="project-item">
+        <div class="project-info">
+          <h3 class="project-title">OrboGAN</h3>
+          <p class="project-desc">A Progressive GAN that generates space-themed images.</p>
+          <span class="project-date">March 2025</span>
+        </div>
+        <a class="project-link" href="https://github.com/09-prince/OrboGAN" target="_blank" rel="noopener">
+          <i class="fa-brands fa-github"></i> Open GitHub
+        </a>
+      </li>
+
+      <li class="project-item">
+        <div class="project-info">
+          <h3 class="project-title">Transformer from Scratch</h3>
+          <p class="project-desc">The Transformer architecture from "Attention Is All You Need", implemented from scratch.</p>
+          <span class="project-date">March 2025</span>
+        </div>
+        <a class="project-link" href="https://github.com/09-prince/Transformer" target="_blank" rel="noopener">
+          <i class="fa-brands fa-github"></i> Open GitHub
+        </a>
+      </li>
+
+      <li class="project-item">
+        <div class="project-info">
+          <h3 class="project-title">Toxicity Detection Model</h3>
+          <p class="project-desc">A deep-learning text classifier (RNN/LSTM) that detects and flags toxic language.</p>
+          <span class="project-date">December 2024</span>
+        </div>
+        <a class="project-link" href="https://github.com/09-prince/Toxicity_model" target="_blank" rel="noopener">
+          <i class="fa-brands fa-github"></i> Open GitHub
+        </a>
+      </li>
+
+      <li class="project-item">
+        <div class="project-info">
+          <h3 class="project-title">Wally (Ransomware PoC)</h3>
+          <p class="project-desc">An educational ransomware proof-of-concept exploring file-encryption techniques for security research.</p>
+          <span class="project-date">December 2023</span>
+        </div>
+        <a class="project-link" href="https://github.com/09-prince/wally_ransomware" target="_blank" rel="noopener">
+          <i class="fa-brands fa-github"></i> Open GitHub
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <footer>
+    © 2025 Prince Gour · <a href="../index.html">Back to Portfolio</a>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

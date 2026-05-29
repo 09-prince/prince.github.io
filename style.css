@@ -28,6 +28,11 @@
   box-sizing: border-box;
 }
 
+html {
+  background: var(--bg-color);
+  transition: background-color 0.3s;
+}
+
 body {
   font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
   color: var(--text-color);
@@ -35,6 +40,52 @@ body {
   line-height: 1.6;
   padding-top: 70px;
   transition: background-color 0.3s, color 0.3s;
+}
+
+/* Smooth page transitions ------------------------------------------------ */
+
+/* Fallback for browsers without the View Transitions API: gently fade each
+   page in on load so navigation never blinks. */
+@keyframes pageFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+body > * {
+  animation: pageFadeIn 0.45s ease-in-out both;
+}
+
+/* Modern browsers: cross-fade smoothly between pages with the View
+   Transitions API. The old page dissolves straight into the new one (no
+   blank frame), so we drop the load fade-in above to avoid animating twice. */
+@supports (view-transition-name: none) {
+  @view-transition {
+    navigation: auto;
+  }
+
+  body > * {
+    animation: none;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.4s;
+    animation-timing-function: ease-in-out;
+  }
+}
+
+/* Respect users who prefer no motion */
+@media (prefers-reduced-motion: reduce) {
+  body > * { animation: none; }
+  *,
+  *::before,
+  *::after { transition: none !important; }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }
 
 /* Navigation */
@@ -221,6 +272,67 @@ h2 {
   font-size: 0.9em;
 }
 
+/* Projects */
+.project-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.project-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.project-item:last-child {
+  border-bottom: none;
+}
+
+.project-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.project-title {
+  font-size: 1.15em;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.project-desc {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+
+.project-date {
+  font-size: 0.85em;
+  color: var(--text-secondary);
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: 8px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--accent-color);
+  text-decoration: none;
+  font-size: 0.9em;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.project-link:hover {
+  background: var(--hover-bg);
+  border-color: var(--accent-color);
+}
+
 /* Back Link */
 .back-link {
   display: inline-flex;
@@ -293,6 +405,11 @@ footer a {
   }
 
   .post-list li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .project-item {
     flex-direction: column;
     align-items: flex-start;
   }
