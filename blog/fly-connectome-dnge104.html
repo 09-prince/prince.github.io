@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Prince Gour">
+    <meta name="description" content="How a map of neurons can reveal the hidden logic of the brain: a walkthrough of the Drosophila male CNS connectome through the GABAergic descending neuron DNge104.">
+    <title>From Neurons to Networks: The Fly Connectome Through DNge104 - Prince Gour</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <script>(function(){try{document.documentElement.setAttribute('data-theme',localStorage.getItem('theme')||'light');}catch(e){}})();</script>
+    <style>
+        article {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        article h1 {
+            font-size: 2.1em;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .article-subtitle {
+            font-size: 1.15em;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .article-meta {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        article h2 {
+            font-size: 1.5em;
+            margin-top: 55px;
+            margin-bottom: 20px;
+        }
+
+        article h3 {
+            font-size: 1.15em;
+            margin-top: 30px;
+            margin-bottom: 12px;
+            color: var(--text-color);
+        }
+
+        article p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        article ul, article ol {
+            margin-bottom: 20px;
+            padding-left: 30px;
+        }
+
+        article li {
+            margin-bottom: 8px;
+            line-height: 1.8;
+        }
+
+        article a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        article a:hover {
+            text-decoration: underline;
+        }
+
+        /* Figures ---------------------------------------------------- */
+        figure {
+            margin: 30px 0;
+        }
+
+        figure img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: #ffffff;
+        }
+
+        figure.hero img {
+            width: 100%;
+        }
+
+        figure.portrait img {
+            max-height: 560px;
+        }
+
+        figcaption {
+            margin-top: 10px;
+            font-size: 0.88em;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        /* Code & tables ---------------------------------------------- */
+        code {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.9em;
+            background: var(--hover-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 1px 5px;
+        }
+
+        pre {
+            background: var(--hover-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px 18px;
+            margin: 0 0 20px 0;
+            overflow-x: auto;
+            line-height: 1.6;
+            font-size: 0.9em;
+        }
+
+        pre code {
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: 1em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            font-size: 0.95em;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            margin-bottom: 25px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            font-weight: 600;
+            background: var(--hover-bg);
+        }
+
+        td.num, th.num {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        blockquote {
+            margin: 25px 0;
+            padding: 15px 20px;
+            border-left: 4px solid var(--accent-color);
+            background: var(--hover-bg);
+            border-radius: 0 8px 8px 0;
+        }
+
+        blockquote p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Flow diagrams ---------------------------------------------- */
+        .flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            margin: 25px 0;
+        }
+
+        .flow .node {
+            border: 1px solid var(--border-color);
+            background: var(--hover-bg);
+            border-radius: 8px;
+            padding: 10px 22px;
+            min-width: 220px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .flow .node.hl {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .flow .node small {
+            display: block;
+            font-weight: 400;
+            font-size: 0.85em;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .flow .arrow {
+            color: var(--text-secondary);
+            font-size: 1.2em;
+            line-height: 1;
+            padding: 6px 0;
+            text-align: center;
+        }
+
+        .flow .arrow small {
+            display: block;
+            font-size: 0.7em;
+            font-family: Consolas, Menlo, monospace;
+            margin-top: 3px;
+        }
+
+        .flow-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .flow-row .node {
+            min-width: 140px;
+        }
+
+        /* Stat cards ------------------------------------------------- */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 14px;
+            margin: 25px 0;
+        }
+
+        .stat {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            background: var(--hover-bg);
+        }
+
+        .stat .value {
+            font-size: 1.6em;
+            font-weight: 600;
+            color: var(--accent-color);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .stat .label {
+            font-size: 0.85em;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+
+        /* Bar chart -------------------------------------------------- */
+        .bars {
+            margin: 25px 0;
+        }
+
+        .bar-row {
+            display: grid;
+            grid-template-columns: 190px 1fr 120px;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 9px;
+            font-size: 0.93em;
+        }
+
+        .bar-row .track {
+            height: 18px;
+            background: var(--hover-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .bar-row .fill {
+            height: 100%;
+            background: var(--accent-color);
+            opacity: 0.85;
+        }
+
+        .bar-row .fill.muted {
+            opacity: 0.35;
+        }
+
+        .bar-row .val {
+            text-align: right;
+            color: var(--text-secondary);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Callouts --------------------------------------------------- */
+        .callout {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 18px 22px;
+            margin: 16px 0;
+            background: var(--hover-bg);
+        }
+
+        .callout .tag {
+            display: inline-block;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 6px;
+        }
+
+        .callout p:last-child {
+            margin-bottom: 0;
+        }
+
+        .chain {
+            display: grid;
+            grid-template-columns: 130px 1fr;
+            gap: 10px 16px;
+            margin: 25px 0;
+        }
+
+        .chain .k {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-weight: 600;
+            color: var(--accent-color);
+            padding-top: 3px;
+        }
+
+        .chain .v {
+            line-height: 1.7;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .article-links {
+            margin-top: 50px;
+            padding: 25px;
+            background: var(--hover-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .article-links h3 {
+            margin-top: 0;
+        }
+
+        .article-links ul {
+            margin-bottom: 0;
+        }
+
+        svg.diagram {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-width: 620px;
+            margin: 0 auto;
+            color: var(--text-color);
+        }
+
+        @media (max-width: 600px) {
+            .bar-row {
+                grid-template-columns: 1fr;
+                gap: 4px;
+                margin-bottom: 14px;
+            }
+            .bar-row .val {
+                text-align: left;
+            }
+            .chain {
+                grid-template-columns: 1fr;
+                gap: 4px;
+            }
+            .chain .v {
+                margin-bottom: 8px;
+            }
+            .flow .node {
+                min-width: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="nav-social">
+                <a href="mailto:gourprince2004@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                <a href="https://github.com/09-prince" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a href="https://linkedin.com/in/prince-gour" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+
+            <button class="mobile-toggle" onclick="toggleMobileMenu()"><i class="fa-solid fa-bars"></i></button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../index.html">about</a></li>
+                <li><a href="index.html" class="active">blog</a></li>
+                <li><a href="../projects/index.html">projects</a></li>
+                <li><a href="../cv/index.html">cv</a></li>
+                <li>
+                    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+                        <i class="fa-solid fa-moon"></i>
+                        <i class="fa-solid fa-sun"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <article>
+        <a href="index.html" class="back-link">
+            <i class="fa-solid fa-arrow-left"></i> Back to Blog
+        </a>
+
+        <h1>From Neurons to Networks: Understanding the Fly Connectome Through DNge104</h1>
+        <p class="article-subtitle">How a map of neurons can reveal the hidden logic of the brain</p>
+        <div class="article-meta">By Prince Gour · September 2026 · ~18 min read</div>
+
+        <figure class="hero">
+            <img src="../assets/blog/fly-em-header-janelia.jpg" alt="3D rendering of every reconstructed neuron in the Drosophila male central nervous system: brain (right) connected through the neck to the ventral nerve cord (left)." width="1200" height="675">
+            <figcaption>Every neuron in the male fruit fly central nervous system, brain and ventral nerve cord joined through an intact neck. Image: FlyEM / HHMI Janelia Research Campus (<a href="https://www.janelia.org/project-team/flyem/male-cns-connectome" target="_blank">Male CNS Connectome</a>, CC-BY 4.0).</figcaption>
+        </figure>
+
+        <p>The brain is not simply a collection of neurons. It is a vast network in which neurons communicate with one another through millions of connections. To understand how a nervous system produces behavior, scientists therefore need more than a list of individual cells. They need to understand <strong>how those cells are wired together</strong>.</p>
+
+        <p>This is where the idea of a <strong>connectome</strong> becomes powerful.</p>
+
+        <p>A connectome is essentially a map of the nervous system's anatomical wiring. In graph terms, neurons are the nodes, synaptic connections are the edges, and the number of synapses between two neurons can be represented as the edge weight.</p>
+
+        <p>One particularly interesting example comes from the fruit fly, <em>Drosophila melanogaster</em>. In June 2026, the <a href="https://www.janelia.org/project-team/flyem" target="_blank">FlyEM team at HHMI Janelia</a>, together with the Cambridge Drosophila Connectomics Group at the MRC LMB and Google Research, released <strong>Male CNS v1.0</strong>: the first complete connectome of an adult fly's brain <em>and</em> ventral nerve cord. By examining the connectivity of a single descending neuron in this dataset, <strong>DNge104</strong>, we can see how raw connectivity data is transformed into a biological hypothesis.</p>
+
+        <h2>What exactly is a connectome?</h2>
+
+        <p>Imagine a simple network:</p>
+
+<pre><code>A ─────→ B
+B ─────→ C
+A ─────→ D
+D ─────→ C</code></pre>
+
+        <p>This looks like an ordinary directed graph. In a connectome, however:</p>
+
+        <ul>
+            <li><strong>Node</strong> = neuron</li>
+            <li><strong>Edge</strong> = synaptic connection</li>
+            <li><strong>Edge weight</strong> = number of synapses</li>
+        </ul>
+
+        <p>So instead of simply saying "Neuron A → Neuron B", we might have:</p>
+
+<pre><code>Neuron A ── 2,591 synapses ──→ Neuron B</code></pre>
+
+        <p>This distinction is important because a connectome tells us about <strong>anatomical connectivity</strong>, not what the neurons are doing at a particular moment. A road map tells us which roads are connected, but it does not tell us which cars are currently traveling on them.</p>
+
+        <blockquote>
+            <p><strong>Connectome</strong> = anatomical wiring<br><strong>Activity recording</strong> = neural activity</p>
+        </blockquote>
+
+        <p>This distinction becomes extremely important when moving from connectivity data toward biological interpretation.</p>
+
+        <h2>How is a connectome created?</h2>
+
+        <p>Creating a connectome is an enormous imaging and reconstruction problem. The Male CNS volume was imaged with <strong>focused ion beam scanning electron microscopy (FIB-SEM)</strong> at <strong>8 nm isotropic resolution</strong>: the ion beam mills away a few nanometers of tissue, the electron beam images the freshly exposed face, and the cycle repeats tens of thousands of times. Google Research's machine-learning segmentation then traced every neuron through the resulting image stack, and human proofreaders corrected the results.</p>
+
+        <div class="flow">
+            <div class="node">3D nervous system</div>
+            <div class="arrow">↓</div>
+            <div class="node">Mill &amp; image, 8 nm at a time<small>FIB-SEM</small></div>
+            <div class="arrow">↓</div>
+            <div class="node">Millions of EM images</div>
+            <div class="arrow">↓</div>
+            <div class="node">3D reconstruction &amp; segmentation<small>machine learning + proofreading</small></div>
+            <div class="arrow">↓</div>
+            <div class="node">Synapse identification</div>
+            <div class="arrow">↓</div>
+            <div class="node hl">Connectome graph</div>
+        </div>
+
+        <p>The result is much more than a collection of pictures. The reconstructed volume allows researchers to determine which neurons physically connect to which other neurons.</p>
+
+        <h2>Why study a fruit fly?</h2>
+
+        <p>At first, studying a fly might seem unrelated to understanding complex nervous systems. The reason is scale.</p>
+
+        <div class="stats">
+            <div class="stat"><div class="value">~166,700</div><div class="label">neurons in the fly's entire CNS (Male CNS v1.0)</div></div>
+            <div class="stat"><div class="value">~70 million</div><div class="label">neurons in a mouse brain</div></div>
+            <div class="stat"><div class="value">~86 billion</div><div class="label">neurons in a human brain</div></div>
+        </div>
+
+        <p>Because the fly nervous system is dramatically smaller than that of mammals, researchers can attempt something extraordinarily ambitious: <strong>mapping essentially the entire nervous system</strong>. (Earlier whole-<em>brain</em> connectomes such as FlyWire contained roughly 140,000 neurons; adding the nerve cord brings the Male CNS to 166,691 annotated neurons in 11,691 cell types.)</p>
+
+        <p>The dataset discussed here is <strong>Male CNS v1.0</strong>, where CNS means <strong>Central Nervous System</strong>: the brain together with the ventral nerve cord (VNC), connected through an intact neck. This gives researchers an opportunity to study the nervous system as a complete network, from eyes to legs, rather than examining isolated pieces.</p>
+
+        <figure class="portrait">
+            <img src="../assets/blog/male-cns-neurons-janelia.jpg" alt="Rendering of the male Drosophila central nervous system showing the brain with two optic lobes at the top, the neck connective, and the ventral nerve cord below." width="800" height="1196">
+            <figcaption>The Male CNS dataset covers the fruit fly's brain (top, with the two optic lobes) and the ventral nerve cord (bottom), one representative neuron per cell type. Image: FlyEM / HHMI Janelia (CC-BY 4.0).</figcaption>
+        </figure>
+
+        <h2>Brain → VNC → Body</h2>
+
+        <p>One of the most useful ways to visualize the fly nervous system is as a hierarchy:</p>
+
+        <div class="flow">
+            <div class="node">Brain<small>"Turn left."</small></div>
+            <div class="arrow">↓</div>
+            <div class="node hl">Descending neurons<small>"Left-turn command."</small></div>
+            <div class="arrow">↓</div>
+            <div class="node">Ventral nerve cord (VNC)<small>"Coordinate the individual motor circuits."</small></div>
+            <div class="arrow">↓</div>
+            <div class="node">Motor neurons</div>
+            <div class="arrow">↓</div>
+            <div class="node">Muscles</div>
+        </div>
+
+        <p>The brain does not need to control every muscle independently. Instead, higher-level commands travel through <strong>descending neurons</strong>, while circuits in the VNC perform much of the detailed computation required for movement.</p>
+
+        <p>The dataset contains roughly <strong>1,300 descending neurons</strong> and <strong>700 motor neurons</strong>, illustrating this separation between higher-level commands and downstream motor execution. The VNC is therefore not a passive cable between the brain and the body. It is an active computational system.</p>
+
+        <h2>What is a descending neuron?</h2>
+
+        <p>The name itself gives the basic idea. A <strong>descending neuron</strong> carries information from higher brain regions toward the ventral nerve cord and body. An <strong>ascending neuron</strong> works in the opposite direction, carrying information from the body and VNC up to the brain.</p>
+
+        <div class="flow-row" style="margin:25px 0">
+            <div class="flow" style="margin:0">
+                <div class="node">Brain</div>
+                <div class="arrow">↓</div>
+                <div class="node hl">Descending neuron</div>
+                <div class="arrow">↓</div>
+                <div class="node">VNC / body</div>
+            </div>
+            <div class="flow" style="margin:0">
+                <div class="node">Body / VNC</div>
+                <div class="arrow">↓</div>
+                <div class="node hl">Ascending neuron</div>
+                <div class="arrow">↓</div>
+                <div class="node">Brain</div>
+            </div>
+        </div>
+
+        <blockquote>
+            <p><strong>Descending</strong> = brain → body<br><strong>Ascending</strong> = body → brain</p>
+        </blockquote>
+
+        <p>This directional organization becomes extremely useful when analyzing a connectome because it gives biological meaning to the direction of graph edges.</p>
+
+        <h2>Understanding a neuron</h2>
+
+        <figure>
+            <svg class="diagram" viewBox="0 0 620 210" role="img" aria-label="Simplified neuron: dendrites receive input, the soma holds the nucleus, the axon carries output to synapses onto other neurons.">
+                <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <path d="M40 40 L100 95"/>
+                    <path d="M25 105 L100 105"/>
+                    <path d="M40 170 L100 115"/>
+                    <path d="M40 40 L20 20 M40 40 L60 15"/>
+                    <path d="M40 170 L20 190 M40 170 L60 195"/>
+                    <path d="M150 105 L430 105"/>
+                    <path d="M430 105 L500 60 M430 105 L500 105 M430 105 L500 150"/>
+                </g>
+                <circle cx="125" cy="105" r="28" fill="var(--hover-bg)" stroke="currentColor" stroke-width="2"/>
+                <circle cx="125" cy="105" r="9" fill="var(--accent-color)"/>
+                <g fill="var(--accent-color)">
+                    <circle cx="500" cy="60" r="6"/><circle cx="500" cy="105" r="6"/><circle cx="500" cy="150" r="6"/>
+                </g>
+                <g fill="var(--hover-bg)" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="560" cy="60" r="16"/><circle cx="560" cy="105" r="16"/><circle cx="560" cy="150" r="16"/>
+                </g>
+                <g font-family="Roboto, Arial, sans-serif" font-size="13" fill="currentColor" text-anchor="middle">
+                    <text x="45" y="120" font-weight="600">Dendrites</text>
+                    <text x="45" y="136" font-size="11" opacity="0.7">input</text>
+                    <text x="125" y="155" font-weight="600">Soma</text>
+                    <text x="290" y="95" font-weight="600">Axon</text>
+                    <text x="290" y="125" font-size="11" opacity="0.7">output travels this way →</text>
+                    <text x="470" y="30" font-weight="600">Synapses</text>
+                    <text x="560" y="190" font-size="11" opacity="0.7">other neurons</text>
+                </g>
+            </svg>
+            <figcaption>A simplified neuron. In a connectome these parts become data: <code>pre</code>, <code>post</code>, <code>weight</code>, and the anatomical region (ROI) of each synapse.</figcaption>
+        </figure>
+
+        <ul>
+            <li><strong>Dendrites</strong> generally receive information.</li>
+            <li><strong>Soma</strong> is the cell body containing the nucleus.</li>
+            <li><strong>Axon</strong> carries output toward other cells.</li>
+            <li><strong>Synapses</strong> are communication points between neurons.</li>
+        </ul>
+
+        <h2>The connectome fields you must understand</h2>
+
+        <p>If you want to work with connectome datasets, three concepts are especially important.</p>
+
+        <h3>1. <code>pre</code></h3>
+        <p>Think of <code>pre</code> as the <strong>source</strong> or output side of a connection. For <code>A → B</code>, A is the presynaptic neuron.</p>
+
+        <h3>2. <code>post</code></h3>
+        <p><code>post</code> represents the receiving side. For <code>A → B</code>, B is the postsynaptic neuron.</p>
+
+        <h3>3. <code>weight</code></h3>
+        <p>This is one of the most important fields. <code>A → B, weight = 1</code> and <code>A → B, weight = 200</code> are both "a connection", but the second represents many more synapses between the neurons.</p>
+
+        <blockquote>
+            <p><strong>Weight ≈ the number of synapses between connected neurons.</strong> Simply counting how many neurons are connected can give a very different picture from counting the synapses involved.</p>
+        </blockquote>
+
+        <h2>Partner count is not the same as synapse count</h2>
+
+        <p>This is one of the most important lessons when analyzing connectomes. Imagine:</p>
+
+        <div class="bars">
+            <div class="bar-row"><span>DNge104 → A</span><div class="track"><div class="fill muted" style="width:0.6%"></div></div><span class="val">1 synapse</span></div>
+            <div class="bar-row"><span>DNge104 → B</span><div class="track"><div class="fill muted" style="width:0.6%"></div></div><span class="val">1 synapse</span></div>
+            <div class="bar-row"><span>DNge104 → C</span><div class="track"><div class="fill muted" style="width:0.6%"></div></div><span class="val">1 synapse</span></div>
+            <div class="bar-row"><span>DNge104 → D</span><div class="track"><div class="fill" style="width:99.4%"></div></div><span class="val">500 synapses</span></div>
+        </div>
+
+        <p>There are only <strong>four partners</strong>, but <strong>503 synapses</strong>. If we looked only at partner count, every neuron would appear equally important. But the synaptic weights tell a very different story: D carries 500 / 503 ≈ <strong>99.4%</strong> of the actual synaptic connectivity.</p>
+
+        <p>This is why a good connectome analysis should preserve the edge weight rather than reducing everything to a simple connected/not-connected relationship.</p>
+
+        <blockquote><p><strong>Always carry the weight.</strong></p></blockquote>
+
+        <h2>DNge104: a case study</h2>
+
+        <p>Now we can examine the neuron at the center of this analysis. <strong>DNge104</strong> is a bilateral pair of descending neurons, one on each side of the CNS. In Male CNS v1.0 (<a href="https://reiserlab.github.io/celltype-explorer-drosophila-male-cns/types/DNge104.html" target="_blank">Cell Type Explorer</a>) they look like this:</p>
+
+        <div class="table-wrap">
+        <table>
+            <thead>
+                <tr><th>Neuron</th><th class="num">bodyId</th><th class="num">Input synapses</th><th class="num">Output synapses</th><th>Predicted NT</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>DNge104_R</td><td class="num">12781</td><td class="num">13,487</td><td class="num">3,831</td><td>GABA (0.877)</td></tr>
+                <tr><td>DNge104_L</td><td class="num">556329</td><td class="num">14,095</td><td class="num">4,034</td><td>GABA (0.877)</td></tr>
+            </tbody>
+        </table>
+        </div>
+
+        <div class="flow">
+            <div class="node">13,487 input synapses</div>
+            <div class="arrow">↓</div>
+            <div class="node hl">DNge104_R<small>bodyId 12781 · GABAergic · descending</small></div>
+            <div class="arrow">↓</div>
+            <div class="node">3,831 output synapses</div>
+        </div>
+
+        <p>But there is an important technical warning here: <strong>13,487 inputs does not mean 13,487 unique input neurons.</strong> These values are synapse counts, and multiple synapses can exist between the same pair of neurons. That is why connectome analysis must always distinguish between <strong>unique partners</strong> and <strong>total synaptic weight</strong>.</p>
+
+        <p>One more subtlety, specific to insects: fly synapses are <em>polyadic</em>. A single presynaptic site typically contacts several postsynaptic neurons at once, so when you count <em>connections</em> (pre→post pairs) rather than presynaptic sites, the totals grow substantially. You will see this below: the two DNge104 neurons have about 7,900 output synapses between them, yet those release sites make roughly 19,200 downstream connections. Neither number is wrong. They are counting different things, and knowing which one you are looking at is half the job.</p>
+
+        <h2>What does GABA tell us?</h2>
+
+        <p>Connectivity tells us <strong>who is connected to whom</strong>. Neurotransmitter information adds another layer of interpretation. A simplified framework for the fly:</p>
+
+        <div class="table-wrap">
+        <table>
+            <thead><tr><th>Neurotransmitter</th><th>General effect</th></tr></thead>
+            <tbody>
+                <tr><td>Acetylcholine (ACh)</td><td>Excitatory</td></tr>
+                <tr><td>GABA</td><td>Inhibitory</td></tr>
+                <tr><td>Glutamate</td><td>Usually inhibitory in the fly CNS</td></tr>
+                <tr><td>Dopamine / octopamine</td><td>Modulatory</td></tr>
+            </tbody>
+        </table>
+        </div>
+
+        <p>For DNge104, the annotation gives <code>predictedNt = GABA</code> with <code>confidence = 0.877</code>. The important word is <strong>predicted</strong>. In Male CNS the transmitter is inferred by a neural network from the appearance of each synapse in the EM images, not measured experimentally for that individual neuron. So instead of writing <code>A → B</code>, we can write:</p>
+
+<pre><code>DNge104 ──GABA (inhibitory, p≈0.88)──→ target</code></pre>
+
+        <h2>The surprising connectivity of DNge104</h2>
+
+        <p>Here is where the analysis becomes interesting. You might expect a descending neuron to primarily connect to motor neurons: brain → DNge104 → motor neuron → muscle. But the connectivity looks very different. Grouping DNge104's downstream connections by the <em>superclass</em> of the target neuron (summed across both DNge104 neurons) gives:</p>
+
+        <div class="bars">
+            <div class="bar-row"><span>Sensory, nerve cord</span><div class="track"><div class="fill" style="width:66.6%"></div></div><span class="val">12,794 · 66.6%</span></div>
+            <div class="bar-row"><span>VNC intrinsic</span><div class="track"><div class="fill muted" style="width:12.0%"></div></div><span class="val">2,309 · 12.0%</span></div>
+            <div class="bar-row"><span>Sensory, brain</span><div class="track"><div class="fill" style="width:9.3%"></div></div><span class="val">1,790 · 9.3%</span></div>
+            <div class="bar-row"><span>Ascending</span><div class="track"><div class="fill muted" style="width:7.2%"></div></div><span class="val">1,383 · 7.2%</span></div>
+            <div class="bar-row"><span>Other descending</span><div class="track"><div class="fill muted" style="width:2.8%"></div></div><span class="val">543 · 2.8%</span></div>
+            <div class="bar-row"><span>Central brain intrinsic</span><div class="track"><div class="fill muted" style="width:2.1%"></div></div><span class="val">397 · 2.1%</span></div>
+        </div>
+
+        <p>The two sensory rows (highlighted) add up to 14,584 of 19,216 connections: roughly <strong>76% of DNge104's output goes to sensory neurons</strong>. Almost none of it goes directly to motor neurons.</p>
+
+        <p>That changes the biological question. Instead of asking <em>"What movement does DNge104 command?"</em>, we can ask:</p>
+
+        <blockquote><p><strong>"Why would a descending brain neuron target sensory systems so strongly?"</strong></p></blockquote>
+
+        <h2>Who are these sensory targets?</h2>
+
+        <p>The strongest downstream cell types (both DNge104 neurons combined) are:</p>
+
+        <div class="table-wrap">
+        <table>
+            <thead><tr><th>Target type</th><th class="num">Synapses</th><th>What it is</th></tr></thead>
+            <tbody>
+                <tr><td>SNta20</td><td class="num">2,084</td><td>Tarsal (foot) sensory neurons, cholinergic</td></tr>
+                <tr><td>SNta11</td><td class="num">1,383</td><td>Tarsal sensory neurons</td></tr>
+                <tr><td>SNta29</td><td class="num">1,105</td><td>Tarsal sensory neurons</td></tr>
+                <tr><td>BM_InOm</td><td class="num">1,060</td><td>Bristle mechanosensory neurons between the eye facets (inter-ommatidial)</td></tr>
+                <tr><td>SNta37</td><td class="num">868</td><td>Tarsal sensory neurons</td></tr>
+            </tbody>
+        </table>
+        </div>
+
+        <p>The <code>SNta</code> neurons are <strong>tarsal sensory neurons</strong> associated with the fly's feet; <code>BM_InOm</code> are bristle mechanosensory neurons on the head, located between the eye facets. Interestingly, the same types (SNta20, BM_InOm, SNta11) are also DNge104's strongest <em>inputs</em>, so DNge104 sits in a tight, reciprocal loop with touch-sensing neurons.</p>
+
+        <div class="flow">
+            <div class="node hl">DNge104<small>GABAergic descending neuron</small></div>
+            <div class="arrow">↓</div>
+            <div class="flow-row">
+                <div class="node">Foot (tarsal) touch<small>SNta20, SNta11, SNta29, SNta37</small></div>
+                <div class="node">Eye-region bristles<small>BM_InOm</small></div>
+            </div>
+        </div>
+
+        <p>Because DNge104 is predicted to be GABAergic, this connectivity is compatible with the possibility that it <strong>inhibits particular sensory pathways</strong>. But connectivity alone does not establish the behavioral function.</p>
+
+        <h2>Corollary discharge: the bigger idea</h2>
+
+        <p>Suppose a fly moves one of its legs. The movement itself generates sensory signals from the foot. The nervous system therefore faces a problem: how does the brain distinguish <em>self-generated</em> signals from <em>external</em> events? One mechanism nervous systems use is <strong>corollary discharge</strong>: a copy of the motor command is sent to sensory circuits to adjust how the expected feedback is processed.</p>
+
+        <figure>
+            <svg class="diagram" viewBox="0 0 620 230" role="img" aria-label="Corollary discharge: a motor command splits into movement and a sensory prediction; the prediction modulates incoming sensory feedback.">
+                <defs>
+                    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                        <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+                    </marker>
+                </defs>
+                <g fill="var(--hover-bg)" stroke="currentColor" stroke-width="1.5">
+                    <rect x="230" y="15" width="160" height="40" rx="8"/>
+                    <rect x="60" y="110" width="150" height="40" rx="8"/>
+                    <rect x="400" y="110" width="170" height="40" rx="8"/>
+                    <rect x="60" y="180" width="150" height="40" rx="8"/>
+                    <rect x="400" y="180" width="170" height="40" rx="8"/>
+                </g>
+                <rect x="400" y="110" width="170" height="40" rx="8" fill="none" stroke="var(--accent-color)" stroke-width="2"/>
+                <g fill="none" stroke="currentColor" stroke-width="1.8" marker-end="url(#arr)">
+                    <path d="M290 55 L145 108"/>
+                    <path d="M330 55 L470 108"/>
+                    <path d="M135 150 L135 178"/>
+                    <path d="M485 150 L485 178"/>
+                    <path d="M210 200 L398 200"/>
+                </g>
+                <g font-family="Roboto, Arial, sans-serif" font-size="13" fill="currentColor" text-anchor="middle">
+                    <text x="310" y="40" font-weight="600">Motor command</text>
+                    <text x="135" y="135">Movement</text>
+                    <text x="485" y="135" font-weight="600" fill="var(--accent-color)">Corollary discharge</text>
+                    <text x="135" y="205">Sensory feedback</text>
+                    <text x="485" y="205">Sensory gating</text>
+                    <text x="305" y="192" font-size="11" opacity="0.7">self-generated touch</text>
+                    <text x="470" y="70" font-size="11" opacity="0.7">copy of the command</text>
+                </g>
+            </svg>
+            <figcaption>Corollary discharge. The nervous system uses knowledge of its own motor commands to modify how it processes the resulting sensory feedback.</figcaption>
+        </figure>
+
+        <h2>A possible explanation for DNge104</h2>
+
+        <p>The connectivity suggests a hypothesis: the brain sends a command down DNge104, DNge104 releases GABA onto sensory terminals, and the sensory feedback from the feet and head bristles is reduced or reshaped. One interpretation is that DNge104 participates in <strong>sensory gating of self-generated touch</strong>, potentially during behaviors such as grooming, where the legs repeatedly brush the head and eyes.</p>
+
+        <p>The key word, however, is <strong>hypothesis</strong>. The connectome does not prove that DNge104 controls grooming. The reasoning follows a scientific chain:</p>
+
+        <div class="chain">
+            <div class="k">Observation</div><div class="v">DNge104 is a descending neuron.</div>
+            <div class="k">Observation</div><div class="v">DNge104 is predicted to be GABAergic (inhibitory).</div>
+            <div class="k">Observation</div><div class="v">~76% of its output connections target sensory neurons.</div>
+            <div class="k">Observation</div><div class="v">Its strongest targets are tactile sensory neurons of the feet and head.</div>
+            <div class="k">Hypothesis</div><div class="v">DNge104 may gate self-generated sensory feedback (corollary discharge).</div>
+            <div class="k">Experiment</div><div class="v">Manipulate DNge104 (silence / activate) while recording sensory neuron activity and measuring behavior.</div>
+        </div>
+
+        <p>This distinction between <strong>observation, interpretation, hypothesis, and experiment</strong> is perhaps the most important lesson of the entire analysis.</p>
+
+        <h2>Turning raw data into biological knowledge</h2>
+
+        <p>So how do we actually perform this analysis computationally? A connectome dataset can be thought of as two major tables, both available from the official <a href="https://male-cns.janelia.org/download/" target="_blank">Male CNS download page</a>.</p>
+
+        <h3>The node table</h3>
+        <p>One row represents one neuron: its <code>bodyId</code>, cell type, superclass and other annotations. Male CNS v1.0 annotates 166,691 neurons this way (the connectivity tables also include unannotated fragments, so they list more bodies than that).</p>
+
+<pre><code>bodyId    type       superclass
+12781     DNge104    descending
+556329    DNge104    descending
+12345     SNta20     sensory</code></pre>
+
+        <h3>The edge table</h3>
+        <p>One row represents a connection between two bodies. The full connection table runs to <strong>well over 100 million rows</strong>.</p>
+
+<pre><code>bodyId_pre    bodyId_post    weight
+10352         10351          2591</code></pre>
+
+        <h2>Why an edge list is better than a giant matrix</h2>
+
+        <p>With 166,691 neurons, a complete neuron-by-neuron adjacency matrix would contain 166,691² ≈ <strong>27.8 billion cells</strong>. Most of those would be zero, because most neuron pairs are not directly connected. Instead of storing a mostly-empty matrix:</p>
+
+<pre><code>       A  B  C  D  E
+A      0  4  0  0  2
+B      0  0  8  0  0
+C      1  0  0  3  0</code></pre>
+
+        <p>we store only the connections that exist:</p>
+
+<pre><code>pre   post   weight
+A     B      4
+A     E      2
+B     C      8
+C     A      1
+C     D      3</code></pre>
+
+        <p>This is an <strong>edge list</strong>, which is far more efficient for a sparse network.</p>
+
+        <h2>The hidden power of JOIN operations</h2>
+
+        <p>A large part of connectome analysis is essentially a sequence of database operations. Suppose we want to know: <strong>who does DNge104 connect to?</strong></p>
+
+        <div class="flow">
+            <div class="node">Node table<small>find type == "DNge104" → bodyId 12781</small></div>
+            <div class="arrow">↓</div>
+            <div class="node">Edge table<small>filter bodyId_pre == 12781</small></div>
+            <div class="arrow">↓</div>
+            <div class="node">Target bodyIds<small>12345, 67890, 55555, …</small></div>
+            <div class="arrow">↓<small>JOIN with node table</small></div>
+            <div class="node">Target types &amp; superclasses<small>12345 → SNta20 → sensory</small></div>
+            <div class="arrow">↓<small>GROUP BY type · SUM weight</small></div>
+            <div class="node hl">Biologically interpretable summary</div>
+        </div>
+
+        <h3>Why <code>merge()</code> and <code>groupby()</code> matter</h3>
+
+        <p>In Python / pandas, the analysis can be expressed in a few lines:</p>
+
+<pre><code class="language-python">import pandas as pd
+
+ann   = pd.read_feather("body-annotations-male-cns-v1.0-minconf-0.5.feather")
+edges = pd.read_feather("connectome-weights-male-cns-v1.0-minconf-0.5.feather")
+
+dn_ids = ann.loc[ann.type == "DNge104", "bodyId"]
+out    = edges[edges.bodyId_pre.isin(dn_ids)]
+
+# "For every target neuron, what biological identity does it have?"
+m = out.merge(ann, left_on="bodyId_post", right_on="bodyId", how="left")
+
+by_type = (
+    m.groupby(m.type.fillna("(unnamed)"))["weight"]
+     .sum()
+     .sort_values(ascending=False)
+)
+print(by_type.head())</code></pre>
+
+        <p>Instead of examining thousands of individual connections, we obtain a summary:</p>
+
+<pre><code>SNta20       2084
+SNta11       1383
+SNta29       1105
+BM_InOm      1060
+SNta37        868</code></pre>
+
+        <p>Swap <code>type</code> for <code>superclass</code> in the <code>groupby</code> and you get the sensory / VNC-intrinsic / ascending breakdown shown earlier.</p>
+
+        <h2>Three levels of connectome analysis</h2>
+
+        <div class="table-wrap">
+        <table>
+            <thead><tr><th>Level</th><th>Unit</th><th>Question</th></tr></thead>
+            <tbody>
+                <tr><td><strong>1. Individual neuron</strong></td><td><code>bodyId = 12781</code></td><td>Who does this specific neuron connect to?</td></tr>
+                <tr><td><strong>2. Cell type</strong></td><td><code>DNge104</code></td><td>What does this neuron type generally connect to?</td></tr>
+                <tr><td><strong>3. Functional class</strong></td><td>descending, sensory, ascending, motor, VNC intrinsic</td><td>How does information flow through the nervous system?</td></tr>
+            </tbody>
+        </table>
+        </div>
+
+        <p>Moving between these levels prevents you from becoming trapped in either microscopic details or overly broad summaries.</p>
+
+        <h2>Input and output: two different stories</h2>
+
+        <p>Every neuron can be studied from two directions. <strong>Input analysis</strong> asks: what information does DNge104 receive? (For DNge104, most input arrives in the gnathal ganglion and the T2/T3 leg neuropils, largely from the same tactile neurons it targets.) <strong>Output analysis</strong> asks: what does DNge104 anatomically influence? A complete analysis examines both sides.</p>
+
+        <h2>Why comparison is essential</h2>
+
+        <p>Finding an interesting number is not enough. Suppose we observe that DNge104 sends ~76% of its output to sensory neurons. That sounds interesting, but compared with what?</p>
+
+        <ul>
+            <li>If the <em>average</em> descending neuron sends 70% of its output to sensory neurons, then 76% is unremarkable.</li>
+            <li>If typical descending neurons send 5% to sensory neurons, then 76% is a striking specialization.</li>
+        </ul>
+
+        <blockquote><p><strong>A number without a comparison is not evidence of unusualness.</strong> A useful control is another comparable descending neuron, or the whole population of ~1,300 descending neurons.</p></blockquote>
+
+        <h2>From connectome analysis to scientific discovery</h2>
+
+        <div class="flow">
+            <div class="node">Raw connectome</div>
+            <div class="arrow">↓</div>
+            <div class="flow-row">
+                <div class="node">Node table<small>bodyId / type / superclass</small></div>
+                <div class="node">Edge table<small>pre / post / weight</small></div>
+            </div>
+            <div class="arrow">↓<small>JOIN</small></div>
+            <div class="node">Biological graph</div>
+            <div class="arrow">↓</div>
+            <div class="flow-row">
+                <div class="node">Partners</div>
+                <div class="node">Weights</div>
+                <div class="node">Types</div>
+            </div>
+            <div class="arrow">↓<small>AGGREGATION</small></div>
+            <div class="node">Functional classes<small>sensory / motor / DN / ascending / VNC</small></div>
+            <div class="arrow">↓<small>COMPARISON</small></div>
+            <div class="node">Hypothesis</div>
+            <div class="arrow">↓</div>
+            <div class="node hl">Experiment</div>
+        </div>
+
+        <p>This is the transformation that makes connectomics powerful. You begin with more than a hundred million rows of data. You end with a biological question that can be experimentally tested.</p>
+
+        <h2>Observation is not the same as explanation</h2>
+
+        <div class="callout">
+            <span class="tag">Observations (directly in the data)</span>
+            <p>DNge104 is GABAergic. DNge104 has many outputs onto sensory neurons. Several strong targets are tactile sensory neurons.</p>
+        </div>
+        <div class="callout">
+            <span class="tag">Interpretation</span>
+            <p>DNge104 may suppress or modulate sensory signals.</p>
+        </div>
+        <div class="callout">
+            <span class="tag">Hypothesis</span>
+            <p>DNge104 may participate in corollary discharge during grooming.</p>
+        </div>
+        <div class="callout">
+            <span class="tag">Experimental prediction</span>
+            <p>Manipulating DNge104 should alter sensory activity and/or behavior during relevant self-generated movements.</p>
+        </div>
+
+        <p>That is where connectomics meets experimental neuroscience.</p>
+
+        <h2>Building your own connectome analysis system</h2>
+
+        <p>The goal is not merely to build a graph visualization. The goal is to build a system that can answer questions such as:</p>
+
+        <ul>
+            <li>Which neurons provide input to this cell?</li>
+            <li>Which cell types receive its output?</li>
+            <li>How strong are those connections?</li>
+            <li>Which anatomical regions are involved?</li>
+            <li>What neurotransmitter is associated with the neuron?</li>
+            <li>Is the connectivity pattern unusual compared with similar neurons?</li>
+            <li>What biological hypothesis does the pattern suggest?</li>
+            <li>What experiment could test that hypothesis?</li>
+        </ul>
+
+        <p>You do not even need to download the 1 GB tables to start: the official <a href="https://neuprint.janelia.org/?dataset=male-cns%3Av1.0&amp;qt=findneurons" target="_blank">neuPrint</a> server exposes the same graph through a web UI and a Python client (<code>neuprint-python</code>), and the <a href="https://reiserlab.github.io/celltype-explorer-drosophila-male-cns/" target="_blank">Cell Type Explorer</a> gives a one-page summary for every cell type.</p>
+
+        <h2>The three rules to remember</h2>
+
+        <h3>1. Group by type</h3>
+        <p>Don't only ask "what does bodyId 12781 connect to?" Also ask "what cell types does DNge104 preferentially connect to?" Cell-type-level patterns reveal organization that is difficult to see at the level of individual neurons.</p>
+
+        <h3>2. Always use synaptic weight</h3>
+        <p>Don't report only "DNge104 has thousands of downstream partners." Ask how many synapses go to each partner, then compute the percentage of total synaptic weight. This prevents weak connections from appearing equivalent to strong ones.</p>
+
+        <h3>3. Always connect the observation to a test</h3>
+        <p>Don't stop with "DNge104 connects to sensory neurons." Turn it into a hypothesis (DNge104 may gate self-generated sensory feedback), a prediction (manipulating DNge104 should alter sensory responses during self-generated movement), and an experiment (manipulate DNge104, record neural activity, measure behavior). That is the transition from <strong>data analysis to scientific research</strong>.</p>
+
+        <h2>The bigger picture</h2>
+
+        <p>The most exciting thing about connectomics is that it changes the way we think about neuroscience. Instead of looking at one neuron in isolation, we can ask:</p>
+
+        <div class="table-wrap">
+        <table>
+            <tbody>
+                <tr><td><strong>Who?</strong></td><td>Which neurons are connected?</td></tr>
+                <tr><td><strong>Where?</strong></td><td>Where are those neurons located?</td></tr>
+                <tr><td><strong>How much?</strong></td><td>How many synapses connect them?</td></tr>
+                <tr><td><strong>What type?</strong></td><td>Sensory, motor, ascending, descending, intrinsic?</td></tr>
+                <tr><td><strong>What signal?</strong></td><td>GABA, acetylcholine, or another transmitter?</td></tr>
+                <tr><td><strong>What pattern?</strong></td><td>Are the connections selective?</td></tr>
+                <tr><td><strong>What function?</strong></td><td>What biological interpretation is consistent with the pattern?</td></tr>
+                <tr><td><strong>What test?</strong></td><td>What experiment could distinguish that hypothesis from alternatives?</td></tr>
+            </tbody>
+        </table>
+        </div>
+
+        <h2>Final takeaway</h2>
+
+        <p>A connectome is not simply a giant database of neurons. It is a <strong>map of biological relationships</strong>. The real power appears when we combine neuron identity, connectivity, synaptic weight, cell type, neurotransmitter, anatomical location, and comparison, and let them point toward a biological hypothesis and an experimental test.</p>
+
+        <p>DNge104 provides a useful example of this process. It is a descending neuron with substantial connectivity to sensory systems, including tactile sensory neurons of the feet and head. Combined with its predicted GABAergic identity, this connectivity suggests a possible role in sensory gating and corollary discharge.</p>
+
+        <p>But the important scientific conclusion is not that the hypothesis has been proven. The important conclusion is that <strong>the connectome provides a testable hypothesis</strong>.</p>
+
+        <blockquote><p><strong>Turn anatomical wiring into questions about how the nervous system computes, controls movement, processes sensation, and produces behavior.</strong></p></blockquote>
+
+        <p>And that is how you move from <em>"I can read the CSV"</em> to <em>"I can formulate a testable neuroscience question from a connectome."</em></p>
+
+        <div class="article-links">
+            <h3>Sources &amp; further reading</h3>
+            <ul>
+                <li>Berg, S. et al. <em>Sexual dimorphism in the complete connectome of the Drosophila male central nervous system.</em> Cell (2026). Preprint: <a href="https://doi.org/10.1101/2025.10.09.680999" target="_blank">doi:10.1101/2025.10.09.680999</a></li>
+                <li><a href="https://male-cns.janelia.org/" target="_blank">Male CNS Connectome</a>: official dataset site, v1.0 released 8 June 2026 (CC-BY 4.0), with <a href="https://male-cns.janelia.org/download/" target="_blank">downloads</a> of the annotation and connectivity tables</li>
+                <li><a href="https://www.janelia.org/project-team/flyem/male-cns-connectome" target="_blank">FlyEM Male CNS project page</a> at HHMI Janelia Research Campus (source of the images above)</li>
+                <li><a href="https://neuprint.janelia.org/?dataset=male-cns%3Av1.0&amp;qt=findneurons" target="_blank">neuPrint</a>: query the male-cns:v1.0 graph interactively</li>
+                <li><a href="https://reiserlab.github.io/celltype-explorer-drosophila-male-cns/types/DNge104.html" target="_blank">DNge104 in the Male CNS Cell Type Explorer</a>: per-type synapse counts, partners and neurotransmitter prediction used in this post</li>
+            </ul>
+            <p style="margin-top:20px;margin-bottom:0"><a href="index.html"><i class="fa-solid fa-arrow-left"></i> Back to Blog</a></p>
+        </div>
+    </article>
+
+    <footer>
+        © 2026 Prince Gour · <a href="../index.html">Back to Portfolio</a>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>
